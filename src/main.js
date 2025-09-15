@@ -6,7 +6,16 @@
  */
 function calculateSimpleRevenue(purchase, _product) {
    // @TODO: Расчет выручки от операции
+   const { discount, sale_price, quantity } = purchase;
+   console.log(discount, sale_price, quantity)
 }
+
+const itemsList = data.purchase_records.forEach((record) => {
+    for (const item in record['items']) {
+        /* console.log(record['items'][item]) */
+        calculateSimpleRevenue(record['items'][item]);
+    }
+   });
 
 /**
  * Функция для расчета бонусов
@@ -27,7 +36,13 @@ function calculateBonusByProfit(index, total, seller) {
  */
 function analyzeSalesData(data, options) {
     // @TODO: Проверка входных данных
-
+    const dataCollection = [data.sellers, data.products, data.purchase_records]
+    if (!data
+        || !dataCollection.every(Array.isArray)
+        || dataCollection.some(item => item.length === 0)
+    ) {
+        throw new Error('Некорректные входные данные')
+    }
     // @TODO: Проверка наличия опций
 
     // @TODO: Подготовка промежуточных данных для сбора статистики
