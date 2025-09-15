@@ -7,12 +7,11 @@
 function calculateSimpleRevenue(purchase, _product) {
    // @TODO: Расчет выручки от операции
    const { discount, sale_price, quantity } = purchase;
-   console.log(discount, sale_price, quantity)
+   /* console.log(discount, sale_price, quantity) */
 }
 
 const itemsList = data.purchase_records.forEach((record) => {
     for (const item in record['items']) {
-        /* console.log(record['items'][item]) */
         calculateSimpleRevenue(record['items'][item]);
     }
    });
@@ -44,9 +43,18 @@ function analyzeSalesData(data, options) {
         throw new Error('Некорректные входные данные')
     }
     // @TODO: Проверка наличия опций
-
+    try {
+        const { calculateRevenue, calculateBonus } = options;
+    } catch (Error) {
+        console.log('Проверьте что options - это объект')
+    }
+    if (
+        ![calculateRevenue, calculateBonus].every(item => typeof item === "function")
+    ) {
+        throw new Error('Проверьте что опции это функции')
+    }
     // @TODO: Подготовка промежуточных данных для сбора статистики
-
+    
     // @TODO: Индексация продавцов и товаров для быстрого доступа
 
     // @TODO: Расчет выручки и прибыли для каждого продавца
