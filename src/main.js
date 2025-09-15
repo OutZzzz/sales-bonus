@@ -25,6 +25,7 @@ const itemsList = data.purchase_records.forEach((record) => {
  */
 function calculateBonusByProfit(index, total, seller) {
     // @TODO: Расчет бонуса от позиции в рейтинге
+    const { profit } = seller;
 }
 
 /**
@@ -54,9 +55,19 @@ function analyzeSalesData(data, options) {
         throw new Error('Проверьте что опции это функции')
     }
     // @TODO: Подготовка промежуточных данных для сбора статистики
-    
+    const sellerStats = data.sellers.map(seller => (
+    {
+        id: seller.id,
+        name: `${seller.first_name} ${seller.last_name}`,
+        revenue: 0,
+        profit: 0,
+        sales_count: 0,
+        products_sold: {}
+    }
+    ));
     // @TODO: Индексация продавцов и товаров для быстрого доступа
-
+    const sellerIndex = Object.fromEntries(sellerStats.map(item => [item.id, item]));
+    const productIndex = Object.fromEntries(data.products.map(item => [item.sku, item]));
     // @TODO: Расчет выручки и прибыли для каждого продавца
 
     // @TODO: Сортировка продавцов по прибыли
