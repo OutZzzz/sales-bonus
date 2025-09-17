@@ -111,8 +111,7 @@ function analyzeSalesData(data, options) {
             return -1;
         }
         return 0;
-    }).slice(0, 10)
-        console.log(seller.top_products)
+        }).slice(0, 10)
     })
     
     return sellerStats.map(seller => ({
