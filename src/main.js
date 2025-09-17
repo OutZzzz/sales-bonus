@@ -101,11 +101,20 @@ function analyzeSalesData(data, options) {
 
     sellerStats.forEach((seller, index) => {
         seller.bonus = calculateBonus(index, sellerStats.length, seller)
-        seller.top_products = Object.entries(seller.products_sold).map((key, value) => ({
+        seller.top_products = Object.entries(seller.products_sold).map(([key, value]) => ({
             sku: key,
-            quantity: value
-        })).reverse().slice(0, 10)
+            quantity: value,
+        })).sort((a, b) => {
+        if (a.quantity < b.quantity) {
+            return 1;
+        } else if (a.quantity > b.quantity) {
+            return -1;
+        }
+        return 0;
+    }).slice(0, 10)
+        console.log(seller.top_products)
     })
+    
     return sellerStats.map(seller => ({
         seller_id: seller.id,
         name: seller.name,
